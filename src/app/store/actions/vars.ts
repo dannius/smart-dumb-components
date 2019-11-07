@@ -11,12 +11,12 @@ export class Change implements Action {
 
 export class Increment implements Action {
     readonly type = INCREMENT;
-    constructor(public payload: { alpha: number, beta: number }) { }
+    constructor(public payload: string) { }
 }
 
 export class Decrement implements Action {
     readonly type = DECREMENT;
-    constructor(public payload: { alpha: number, beta: number }) { }
+    constructor(public payload: string) { }
 }
 
 export type Action = Increment | Decrement | Change;

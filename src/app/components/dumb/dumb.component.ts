@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-dumb',
@@ -9,6 +9,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class DumbComponent implements OnInit {
   @Input()
   public dumbValue: number;
+
+  @Output()
+  public increment = new EventEmitter<any>();
+
+  @Output()
+  public decrement = new EventEmitter<any>();
 
   constructor() { }
 

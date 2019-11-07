@@ -14,13 +14,13 @@ export function reducer(state = initialState, action: varsActions.Action) {
   switch (action.type) {
     case varsActions.INCREMENT:
       return {
-        alpha: state.alpha + 1,
-        beta: state.beta + 1,
+        alpha: action.payload === 'alpha' ? state.alpha + 1 : state.alpha,
+        beta: action.payload === 'beta' ? state.beta + 1 : state.beta,
       };
     case varsActions.DECREMENT:
       return {
-        alpha: state.alpha - 1,
-        beta: state.beta - 1,
+        alpha: action.payload === 'alpha' ? state.alpha - 1 : state.alpha,
+        beta: action.payload === 'beta' ? state.beta - 1 : state.beta,
       };
     case varsActions.CHANGE:
       return { ...state };
@@ -29,8 +29,5 @@ export function reducer(state = initialState, action: varsActions.Action) {
   }
 }
 
-export const getAlphaState = (state: IVarState) => {
-  console.log(state);
-  return state.alpha;
-};
+export const getAlphaState = (state: IVarState) => state.alpha;
 export const getBetaState = (state: IVarState) => state.beta;
