@@ -1,0 +1,9 @@
+<div class="dumb">
+  <span
+    class="dumb__label dumb__label-outline"
+    [class.dumb__label-outline_red]="dumbValue < 0"
+    [class.dumb__label-outline_blue]="dumbValue >= 0"
+  >
+    {{ dumbValue }}
+  </span>
+</div>

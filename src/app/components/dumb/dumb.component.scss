@@ -1,0 +1,17 @@
+.dumb {
+  &__label {
+    min-width: 100px;
+    display: inline-block;
+  }
+
+  &__label-outline {
+    border: 2px solid transparent;
+
+    &_red {
+      border-color: red;
+    }
+    &_blue {
+      border-color: blue;
+    }
+  }
+}
