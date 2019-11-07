@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { untilDestroyed } from '@orchestrator/ngx-until-destroyed';
 
 import * as fromRoot from './../../store/reducers/index';
 import * as actions from './../../store/actions/vars';
@@ -12,12 +13,15 @@ import { Observable, interval, pipe } from 'rxjs';
   styleUrls: ['./smart.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SmartContainer {
+export class SmartContainer implements OnDestroy {
   public alpha$: Observable<number>;
   public beta$: Observable<number>;
 
+  public ngOnDestroy() {}
+
   constructor(
-    private readonly store: Store<fromRoot.IState>
+    private readonly store: Store<fromRoot.IState>,
+    private _cdr: ChangeDetectorRef,
   ) {
     this.alpha$ = store.select(fromRoot.getAlpha);
     this.beta$ = store.select(fromRoot.getBeta);
@@ -34,8 +38,14 @@ export class SmartContainer {
   }
 
   public change() {
-    interval(1000).subscribe(() => {
-
+    interval(1000)
+    .pipe(untilDestroyed(this))
+    .subscribe(() => {
+      this._cdr.detach();
+      this.increment('alpha');
+      this.decrement('beta');
+      this.decrement('beta');
+      this._cdr.detectChanges();
     });
   }
 
